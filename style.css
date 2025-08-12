@@ -178,7 +178,6 @@ footer{
 .stat .num{ font-size: clamp(2rem, 5vw, 3rem); font-weight:900; line-height:1 }
 .stat .label{ opacity:.8 }
 
-
 /* Stats melhoradas com ícones */
 .stat .ico{
   width:56px; height:56px; margin:0 auto 8px;
@@ -193,7 +192,6 @@ footer{
 .stat .num{ line-height:1; }
 .stat .num span{ display:inline-block; min-width:2ch; } /* evita “pulo” durante animação */
 
-
 /* --- Acessibilidade --- */
 :focus-visible{ outline:2px dashed var(--w12-accent); outline-offset:3px }
 
@@ -201,3 +199,59 @@ footer{
 @media (prefers-reduced-motion: reduce){
   *{ animation:none!important; transition:none!important }
 }
+
+/* ========= FIXES & MOBILE ========= */
+
+/* 0) Overflow horizontal (culpados comuns: translateX, mídias, textos longos) */
+html, body { max-width: 100%; overflow-x: hidden; }
+img, svg, video, canvas { max-width: 100%; height: auto; display: block; }
+h1, h2, h3, h4, h5, h6, p, li, a, small, span { overflow-wrap: anywhere; }
+
+/* 1) Hero: altura/tipos no mobile */
+.hero { min-height: 72vh; }
+.hero h1 { font-size: clamp(1.6rem, 5.5vw, 3rem); line-height: 1.15; }
+.hero p.lead { font-size: clamp(1rem, 3.6vw, 1.25rem); }
+.hero .chip { display: inline-flex; margin: .35rem .25rem 0 0; }
+
+/* 2) Cards/ícones mais compactos em telas pequenas */
+.card { border-radius: 14px; }
+.card .icon { width: 48px; height: 48px; font-size: 1.05rem; border-radius: 12px; }
+
+/* 3) Equipe: fotos menores no mobile */
+.team-card img { height: 240px; }
+
+/* 4) Seções: menos padding em telas pequenas */
+@media (max-width: 575.98px){
+  section { padding: 44px 0; }
+}
+
+/* 5) Estatísticas: números/ícones fluidos */
+.stat .num { font-size: clamp(1.6rem, 7vw, 2.4rem); }
+.stat .ico { width: 48px; height: 48px; border-radius: 12px; }
+
+/* 6) WhatsApp floating: posição segura */
+.whats-float { right: 14px; bottom: 74px; }
+
+/* 7) Navbar ajustes XS */
+@media (max-width: 575.98px){
+  .navbar-brand img { height: 36px; }
+  .navbar .btn, .navbar .btn * { font-size: .9rem; }
+}
+
+/* 8) Form: legibilidade */
+.form-control, .form-select { font-size: 1rem; }
+label.form-label { font-size: .95rem; }
+
+/* 9) Reveal: neutraliza translateX no mobile (evita overflow) */
+@media (max-width: 991.98px){
+  .reveal { transform: translateY(18px); }
+  .reveal[data-anim="left"],
+  .reveal[data-anim="right"] { transform: translateY(18px); } /* neutraliza X */
+}
+.reveal.visible { transform: none; }
+
+/* 10) Imagens nunca forçam largura */
+.card img, .service-img { width: 100%; height: auto; object-fit: cover; }
+
+/* 11) Footer: quebras corretas */
+footer small { display: block; max-width: 100%; }
